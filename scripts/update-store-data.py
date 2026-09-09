@@ -76,8 +76,8 @@ def rewrite_index(values: dict) -> bool:
     html = INDEX.read_text(encoding="utf-8")
     original = html
     for key, value in values.items():
-        if "-" not in key:
-            continue  # only data-store keys, not the numeric offer price
+        if key == "app_price_number":
+            continue  # feeds the JSON-LD offer below, not a data-store span
         pattern = rf'(<span data-store="{re.escape(key)}">)[^<]*(</span>)'
         html, n = re.subn(pattern, rf"\g<1>{value}\g<2>", html)
         if n == 0:
