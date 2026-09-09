@@ -46,27 +46,40 @@ The site is then live at https://spetrequin.github.io/phosphorscrt/.
 
 ## Switching on the custom domain (phosphorscrt.com)
 
-Two steps, whenever you are ready. Nothing on the site needs to change; the
-canonical URLs already point at phosphorscrt.com.
+DNS for phosphorscrt.com is on Cloudflare. Nothing on the site needs to
+change; the canonical URLs already point at phosphorscrt.com.
 
-1. **DNS at the registrar.** Add these records:
+1. **Records in the Cloudflare dashboard** (DNS → Records). Cloudflare
+   flattens CNAMEs at the apex, so two records are enough:
 
-   | Type  | Host | Value                       |
-   |-------|------|-----------------------------|
-   | A     | @    | 185.199.108.153             |
-   | A     | @    | 185.199.109.153             |
-   | A     | @    | 185.199.110.153             |
-   | A     | @    | 185.199.111.153             |
-   | CNAME | www  | spetrequin.github.io        |
+   | Type  | Name | Target                 | Proxy status |
+   |-------|------|------------------------|--------------|
+   | CNAME | @    | spetrequin.github.io   | DNS only     |
+   | CNAME | www  | spetrequin.github.io   | DNS only     |
 
-2. **Tell GitHub Pages.** Either add a file named `CNAME` at the repo root
-   containing the single line `phosphorscrt.com` and push, or set the custom
-   domain in the repo's Settings → Pages. Tick "Enforce HTTPS" once the
-   certificate is issued (usually within an hour of DNS propagating).
+   (GitHub's own docs list four A records for the apex instead:
+   185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
+   Either works. Do not add both.)
 
-Until step 2 is done, do not commit a `CNAME` file: GitHub redirects the
-github.io URL to the custom domain as soon as the file exists, which breaks the
-site if DNS is not ready.
+   **Leave both records "DNS only" (grey cloud) for now.** GitHub verifies
+   the domain and issues its Let's Encrypt certificate by reaching the
+   origin directly; with the orange-cloud proxy on it sees Cloudflare
+   instead, and "Enforce HTTPS" never becomes available.
+
+2. **Commit the `CNAME` file.** One line, `phosphorscrt.com`, at the repo
+   root, then push. GitHub Pages picks it up, checks DNS, and issues the
+   certificate, usually within an hour. Then tick "Enforce HTTPS" in the
+   repo's Settings → Pages. Until DNS is live, do not commit the file:
+   GitHub redirects the github.io URL to the custom domain the moment it
+   exists.
+
+3. **Optional, afterwards: turn the proxy on.** If you want Cloudflare's
+   cache and analytics in front, flip both records to Proxied and set
+   SSL/TLS → Overview to **Full** or **Full (strict)**. Never "Flexible":
+   it makes Cloudflare fetch the origin over plain HTTP while GitHub
+   redirects HTTP to HTTPS, which loops. GitHub's "Enforce HTTPS" toggle
+   may grey out while proxied; Cloudflare's own "Always Use HTTPS" under
+   SSL/TLS → Edge Certificates does the same job.
 
 After the domain is live, update the Support URL and Privacy Policy URL in
 App Store Connect to `https://phosphorscrt.com/support.html` and
