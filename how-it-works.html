@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Phosphors CRT works — beam, phosphor, mask, signal</title>
+  <meta name="description" content="How Phosphors CRT simulates a cathode-ray tube: a Gaussian electron beam with per-scanline timing, two-component phosphor decay from real compound data, three real mask geometries, and a full NTSC and VGA signal path. A simulation, not a filter.">
+  <link rel="canonical" href="https://phosphorscrt.com/how-it-works.html">
+  <link rel="icon" href="assets/img/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How Phosphors CRT works">
+  <meta property="og:description" content="A simulated electron beam, real phosphor decay, real mask geometry and a full broadcast signal path. Why the look is correct by construction.">
+  <meta property="og:image" content="https://phosphorscrt.com/assets/img/detail-stripes.jpg">
+  <meta name="theme-color" content="#0a0a0d">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/favicon-64.png" alt="" width="28" height="28">Phosphors CRT</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <nav class="nav-links" id="nav-links">
+      <a href="./#not-a-filter">Why it's different</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="./#features">Features</a>
+      <a href="./#recording">Recording</a>
+      <a href="./#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a class="btn btn-primary btn-sm" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Mac App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article">
+  <p class="eyebrow">Under the glass</p>
+  <h1>How Phosphors works</h1>
+  <p class="lede">Phosphors doesn't add a "CRT filter" to your video. It rebuilds the picture from scratch by simulating the physics of a real cathode-ray tube: an electron beam, a phosphor-coated screen, and the glass in front. Everything you see emerges from that simulation.</p>
+
+  <div class="toc">
+    <ol>
+      <li><a href="#principle">Simulate the hardware, don't fake the look</a></li>
+      <li><a href="#signal">The signal path</a></li>
+      <li><a href="#beam">The electron beam</a></li>
+      <li><a href="#phosphor">Phosphor excitation and decay</a></li>
+      <li><a href="#interlace">Fields, interlace and the retro console</a></li>
+      <li><a href="#mask">The shadow mask</a></li>
+      <li><a href="#display">The display pass and HDR</a></li>
+      <li><a href="#audio">The receiver's audio</a></li>
+      <li><a href="#why">Why this approach</a></li>
+    </ol>
+  </div>
+
+  <h2 id="principle">1. Simulate the hardware, don't fake the look</h2>
+  <p>Most "retro CRT" tools draw scanlines and a glow on top of your image. Phosphors works the way the tube did: it fires a simulated electron beam at a simulated phosphor screen and shows you what lights up. Scanlines, bloom, smeared motion trails, the rolling hum bar, the fine mask texture: none of them are painted on. They happen, the same way they happened in 1985.</p>
+  <p>The consequence that drives the whole architecture: <b>the phosphor buffer is the screen.</b> It is a GPU-resident image of the current brightness of every phosphor on the tube. Your Mac's display is just a window onto that buffer. The host monitor's refresh rate is irrelevant to the physics. The beam scans at the CRT's rate and phosphors decay at their real-world rates, both driven by an independent clock.</p>
+  <p>That is also why the look stays physically correct at any resolution, from a 13-inch portable to a 4K master, instead of breaking down like a fixed overlay would. More resolution means more phosphors and a finer beam, so the picture gets sharper, not blockier.</p>
+
+  <ol class="chain">
+    <li data-n="01"><b>Your video</b> Any clip macOS can decode. Conformed to a small SDR frame on the media engine, because the tube is standard definition and HDR is an output property.</li>
+    <li data-n="02"><b>Broadcast encode and decode</b> The frame is encoded into a baseband composite signal (or routed through the VGA path), pushed through a tuner with realistic noise behaviour, and demodulated back to RGB scanlines by a receiver.</li>
+    <li data-n="03"><b>Phosphor simulation kernel</b> Reads the decoded signal, advances the beam, excites and decays every phosphor. Output: a state buffer with one brightness per phosphor.</li>
+    <li data-n="04"><b>Display pass</b> Applies mask geometry, afterglow colour, vignette, hum bar and HDR headroom at the output resolution. This is the picture, on screen and in the recording.</li>
+  </ol>
+
+  <h2 id="signal">2. The signal path</h2>
+  <p>Before anything reaches the tube it travels the way a broadcast did. Each input on a television preset is a different chain with its own real artifacts, dirtiest to cleanest:</p>
+  <ul>
+    <li><b>RF.</b> A simulated tuner: narrowest bandwidth, snow when the signal is weak, and an RF Tuning dial that detunes toward a slightly-off channel.</li>
+    <li><b>Composite.</b> Luma and chroma share one wire and have to be combed apart. The Comb Filter dial sets how cleanly; lower leaves more cross-colour rainbowing on fine detail and dot crawl on edges.</li>
+    <li><b>S-Video.</b> Luma and chroma on separate wires. No cross-colour.</li>
+    <li><b>Component.</b> Clean YPbPr, and progressive 480p, so every line is drawn every frame.</li>
+    <li><b>Retro Console.</b> 240p over RF. Consoles from the Famicom on emitted 262 whole lines per field instead of 262.5, which defeats interlace: every field lands on the same 240 raster positions. See <a href="#interlace">below</a> for what that does on the glass.</li>
+  </ul>
+  <p>The NTSC Tint knob exists for the same reason it did on a real set: hue was a real artifact of how colour was encoded. Monitors take a clean digital or RGB feed and hide the whole section. The Bandwidth dial models the analog video chain before the tube: lower is crisper horizontal detail with authentic edge ringing, like a wide-band amplifier; higher rolls off softer, like a long cheap cable.</p>
+
+  <h2 id="beam">3. The electron beam</h2>
+  <h3>A clock, not a frame counter</h3>
+  <p>The beam is driven by a monotonic clock independent of the host display. Fields are dispatched at the preset's rate: 59.94 Hz for NTSC, 50 to 85 Hz for monitors. The simulation is correct whether your Mac runs at 60, 120 or 144 Hz.</p>
+
+  <h3>Arrival time is per scanline</h3>
+  <p>The beam paints top to bottom over one field period, so each scanline has its own arrival time within the field. Top lines are fresher than bottom lines. That is the physical basis for the rolling brightness gradient, for correct interaction with persistence, and for the Shutter control: at 1.00 you are the rested eye and everything fuses; lower it and you watch through an ever-faster camera shutter, and the rolling band of filmed CRT footage appears.</p>
+  <p>The beam's horizontal landing point per line is offset by the sync-PLL result plus jitter, so losing horizontal lock bends individual lines exactly as a real tube does.</p>
+
+  <h3>Shape: a Gaussian with a Nyquist floor</h3>
+  <figure>
+    <svg viewBox="0 0 720 200" aria-labelledby="beam-title" role="img">
+      <title id="beam-title">Two Gaussian beam profiles across scanlines: a tight beam leaves dark gaps, a wide beam fills them in.</title>
+      <g>
+        <text class="d-label" x="0" y="14">tight beam → visible scanlines</text>
+        <line class="d-axis" x1="0" y1="170" x2="340" y2="170"/>
+        <path class="d-fill" d="M0,170 C20,170 30,40 50,40 C70,40 80,170 100,170 C120,170 130,40 150,40 C170,40 180,170 200,170 C220,170 230,40 250,40 C270,40 280,170 300,170 C320,170 330,40 340,40 L340,170 Z"/>
+        <path class="d-line" d="M0,170 C20,170 30,40 50,40 C70,40 80,170 100,170 C120,170 130,40 150,40 C170,40 180,170 200,170 C220,170 230,40 250,40 C270,40 280,170 300,170 C320,170 330,40 340,40"/>
+      </g>
+      <g transform="translate(380,0)">
+        <text class="d-label" x="0" y="14">wide beam → filled-in field</text>
+        <line class="d-axis" x1="0" y1="170" x2="340" y2="170"/>
+        <path class="d-fill" d="M0,150 C25,60 75,60 100,150 C125,60 175,60 200,150 C225,60 275,60 300,150 C315,100 330,70 340,66 L340,170 L0,170 Z"/>
+        <path class="d-line" d="M0,150 C25,60 75,60 100,150 C125,60 175,60 200,150 C225,60 275,60 300,150 C315,100 330,70 340,66"/>
+        <path class="d-line-2" d="M0,112 C40,100 60,100 100,112 C140,100 160,100 200,112 C240,100 260,100 300,112 C320,106 330,104 340,104"/>
+      </g>
+      <text class="d-label" x="0" y="194">scanline centres every 100 px; brightness at a pixel = exp(−d² / 2σ²)</text>
+    </svg>
+    <figcaption>Across a scanline the beam has a Gaussian cross-section. Make it tight and the lines stand apart with dark gaps; widen it and they fill in. The dashed line is what the eye sums.</figcaption>
+  </figure>
+  <p>The crucial parameter is σ, the beam width. It is derived from the Sharpness dial's falloff ratio and clamped to a floor of half a pixel: below that, a point-sampled Gaussian aliases against the sample grid and the scanline pattern beats. So Phosphors keeps the beam exactly as sharp as the render resolution allows without aliasing. Scanlines read as crisp glowing lines at 480p and dissolve into a smooth field at 4K, which is also how a real set looks lined up close and seamless from across the room.</p>
+  <div class="formula">σ = (scanlineSpacing / 2) / √(−2 · ln(falloff))<br>σ ≥ 0.5 px</div>
+
+  <h3>Imperfections, all physically motivated</h3>
+  <ul>
+    <li><b>H-Focus</b> is the focus pot. At 0 the beam's crossover lands on the phosphor plane; turn it either way and the focal point moves in front of or behind the screen and the spot widens. Both directions defocus, like rocking a real monitor's focus adjustment through its sweet spot.</li>
+    <li><b>Convergence.</b> The three guns don't land perfectly on top of each other. Red and blue shift by an amount that grows with distance from centre, and shadow-mask tubes additionally get a vertical offset, reproducing fringing that worsens toward the corners.</li>
+    <li><b>Edge Focus.</b> σ widens with the square of the distance from centre, the way a deflection yoke loses focus off-axis.</li>
+    <li><b>Beam Bloom.</b> σ widens with local brightness. Space-charge repulsion makes bright areas swell.</li>
+    <li><b>Noise.</b> High-frequency jitter, mains-coupled deflection, slow thermal drift, and per-pixel shot noise on the deposited energy.</li>
+  </ul>
+
+  <h2 id="phosphor">4. Phosphor excitation and decay</h2>
+  <p>Where the beam lands, it lifts the phosphor's brightness. The phosphor state is updated with a <b>maximum</b>, not an accumulation: a phosphor decays autonomously every frame, and a fresh beam pass only lifts it if the new excitation is brighter. That makes the steady-state image independent of how many times or in what order the kernel runs, which is what keeps the simulation correct across wildly different host frame rates.</p>
+
+  <h3>A two-component exponential</h3>
+  <figure>
+    <svg viewBox="0 0 720 220" role="img" aria-labelledby="decay-title">
+      <title id="decay-title">Phosphor brightness over time: a fast collapse in under a millisecond, then a long shallow afterglow tail.</title>
+      <line class="d-grid" x1="40" y1="30" x2="700" y2="30"/>
+      <line class="d-grid" x1="40" y1="100" x2="700" y2="100"/>
+      <line class="d-axis" x1="40" y1="190" x2="700" y2="190"/>
+      <line class="d-axis" x1="40" y1="20" x2="40" y2="190"/>
+      <path class="d-line" d="M40,30 C48,120 58,130 80,134 C200,150 400,172 700,186"/>
+      <path class="d-line-2" d="M40,30 C60,170 90,186 130,189 L700,190"/>
+      <text class="d-label" x="90" y="60">fast component: gone in under a millisecond</text>
+      <text class="d-label" x="90" y="76">(stops motion from smearing)</text>
+      <text class="d-label" x="300" y="150">slow component: still ~50–60% a frame later</text>
+      <text class="d-label" x="300" y="166">(stops flicker, leaves the motion trail)</text>
+      <text class="d-label" x="700" y="208" text-anchor="end">time →</text>
+      <text class="d-label" x="0" y="34">bright</text>
+      <text class="d-label" x="0" y="194">dark</text>
+      <text class="d-label" x="470" y="208">dashed: a single exponential, for comparison</text>
+    </svg>
+    <figcaption>Real phosphors don't decay as a single exponential. A fast component and a slow tail are modelled directly, and brighter excitation biases toward the slow component, matching measured behaviour.</figcaption>
+  </figure>
+  <div class="formula">decay = A_fast · e^(−k_fast · dt) + A_slow · e^(−k_slow · dt)<br>brightness = max(brightness · decay, excitation)</div>
+
+  <h3>The presets are real phosphor data</h3>
+  <p>Decay rates and amplitudes are not tuning knobs invented for looks. They come from documented phosphor types, and each colour channel can decay at its own rate.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Preset</th><th>Compound</th><th>Used in</th><th>Character</th></tr></thead>
+      <tbody>
+        <tr><td><b>P22</b></td><td class="mono">Y₂O₂S:Eu (R) · ZnS:Cu,Al (G) · ZnS:Ag (B)</td><td>Colour TV and monitors</td><td>Per-channel decay. Red slow, blue fast, which is why moving edges on a colour tube tint the way they do.</td></tr>
+        <tr><td><b>P4</b></td><td class="mono">ZnS:Ag + (Zn,Cd)S:Ag</td><td>Black-and-white TV, white terminals</td><td>Fast white with a short power-law tail.</td></tr>
+        <tr><td><b>P39</b></td><td class="mono">Zn₂SiO₄:Mn,As</td><td>IBM MDA, long-persistence green</td><td>Arsenic trap-state tail lasting two to three seconds. 34.5% remaining at 30 ms.</td></tr>
+        <tr><td><b>P1</b></td><td class="mono">Zn₂SiO₄:Mn</td><td>Classic green terminals and scopes</td><td>Medium green, T10 ≈ 24 ms.</td></tr>
+        <tr><td><b>P31</b></td><td class="mono">ZnS:Cu</td><td>Modern oscilloscopes</td><td>Three times brighter than P1, very short persistence.</td></tr>
+        <tr><td><b>P3</b></td><td class="mono">Zn₈BeSi₅O₁₉:Mn</td><td>Amber terminals</td><td>Warm 602 nm amber, medium persistence.</td></tr>
+        <tr><td><b>P4G</b></td><td class="mono">ZnS:Ag, green-tinted</td><td>DEC VT220</td><td>Short-persistence green TV phosphor.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The display stage also applies a small decay-dependent afterglow colour shift, so as each channel fades its emission drifts the way the real compound does. The red Y₂O₂S:Eu tail warms toward orange.</p>
+
+  <h2 id="interlace">5. Fields, interlace and the retro console</h2>
+  <p>Monitors are progressive: every scanline is painted every field. Televisions are interlaced, and the visible region is mapped through the vertical blanking interval so framing matches the standard, roughly 480 visible lines of 525 for NTSC. Because each scanline carries its own arrival time and each phosphor its own decay since excitation, brightness naturally varies down the frame. The scan gradient is a consequence of per-line timing, not an overlay.</p>
+  <p>The Retro Console input models what a 240p signal does on a 480-line tube. The electron spot is a property of the tube, not the signal: a 240p feed keeps the native thin beam while the line spacing doubles, so the positions a 480i raster would visit in between stay dark. Those gaps <em>are</em> the retro scanline look. One thin beam per content line, never a fattened beam, never two beams, every line refreshed at 60 Hz with no interlace flicker.</p>
+
+  <h2 id="mask">6. The shadow mask</h2>
+  <p>Up close, a colour CRT isn't made of pixels. It is a fine lattice of red, green and blue phosphors behind a perforated metal mask. Phosphors models the real geometries rather than a generic grid:</p>
+  <ul>
+    <li><b>Aperture grille.</b> Continuous vertical R-G-B stripes, as in a Trinitron.</li>
+    <li><b>Shadow mask.</b> Delta-triad round dots in a honeycomb, each row offset half a triad, leaving a black matrix between them.</li>
+    <li><b>Slot mask.</b> Stripes broken into short slots, the hybrid most colour TVs used. The row pitch is locked to a whole multiple of the scanline pitch so it registers to the scan with no beat at any resolution.</li>
+    <li><b>Triode.</b> No mask at all. The picture the three guns paint, with the scanlines, bloom, persistence and beam softness but no structure over it. The name refers to the tube's three guns, not to a phosphor triad.</li>
+  </ul>
+
+  <div class="note">
+    <p><b>Why the pattern is coarser than a real tube's.</b> A 21-inch Trinitron has about 1,700 RGB triads across its width; a colour TV around 750. Drawing one triad takes at least three pixels, one per stripe, so reproducing a real monitor's density would need over 5,000 pixels of width for the pattern alone. Phosphors draws the pattern at the finest size a pixel grid can hold, and it is deliberately locked to whole pixels so it stays crisp instead of shimmering. What you get is a faithful impression of phosphor structure rather than a one-to-one copy. It also means, exactly as on a real tube, that at 1× you may not see it from a normal viewing distance. Lean in with the viewing zoom, or raise Pattern Scale.</p>
+  </div>
+
+  <h3>Pattern Scale and Pattern Focus</h3>
+  <p>Pattern Scale is a multiple of the finest lattice that still reads, from 1× to 3×, and it is a multiple rather than a pixel size so the same value looks the same on screen and in a recording even though the two are different resolutions. Pattern Focus states how tightly the beam is focused on a single cell, interpreted per pattern: on stripes it sets how far the spot spills into neighbours, on the shadow mask how wide each dot is. Right is always tighter, purer and more separated; left is softer and fainter.</p>
+  <p>Focus also protects a recording. A hard-edged stripe is a square wave and carries harmonics, and those are what fold into rainbow moiré when a player scales your video to a window that isn't its native size. A fully blended stripe has a single frequency and nothing left to fold. Softening the pattern at the source beats any filter applied afterwards, because the harmonics are never created in the first place.</p>
+  <p>The stripe lattice also changes shape with how many pixels a stripe covers. Merged, all three channels light one bar per triad so it reads as white with a thin black line beside it; separated, when zoomed in, it splits into three coloured bars with black between. It is a continuous morph driven by pixels per stripe, and it is why the mask resolves cleanly instead of aliasing as it shrinks.</p>
+
+  <h2 id="display">7. The display pass and HDR</h2>
+  <p>Two passes run per frame. The <b>simulation</b> pass is the tube's state. The <b>display</b> pass is the picture: it samples the phosphor buffer through a mipmapped texture so minification integrates the scanline and mask comb cleanly, applies the mask tile, phosphor colour and afterglow, brightness, vignette and the sinusoidal mains hum bar. The live view and the recording are each their own display pass at their own resolution, fed by the same canonical phosphor image. Recording Preview shows the recording's pass on screen at 1:1, so you judge the file itself.</p>
+  <p>Output is a 16-bit float image with no clamp at white. With HDR on, the tube's own bright peaks, such as pattern sparkle and small bright areas above full-field white, are allowed to rise into the display's headroom through a per-pass highlight ceiling that is capped by what the panel can deliver right now. The picture itself never gets brighter; only the peaks do, and it cannot blow out. Recordings write HLG (Rec. 2020), chosen because it degrades gracefully: HDR displays show the full range and SDR players get a usable picture straight from the curve, with no tone-mapping metadata.</p>
+
+  <h2 id="audio">8. The receiver's audio</h2>
+  <p>On broadcast presets the sound gets the same treatment as the picture. Raw audio goes through a full FM receiver chain implemented as pure DSP: pre-emphasis, phase-accumulator modulation, signal-to-noise phase noise, FM discrimination, de-emphasis, a capture-effect sigmoid, MTS stereo with dbx companding and a signal-tracking stereo blend, a TV speaker biquad, and intercarrier buzz. The receiver's hiss, the stereo image narrowing to mono as a weak signal fades, and the buzzy small-speaker character all emerge from the chain rather than from layered effect plug-ins. The Stereo, Speaker and Shielding dials sit on that chain.</p>
+
+  <h2 id="why">9. Why this approach</h2>
+  <p>Modelling the hardware instead of the output means the artifacts are correct by construction and interact the way the real ones do. Bloom widens the beam, which fattens scanlines, which changes how the mask reads, which the persistence then trails, all from one coherent simulation. Accuracy becomes a function of render resolution rather than of hand-tuned effect stacks, and the same canonical phosphor image feeds both the live preview and the recorder.</p>
+  <p>Phosphors' display presets are modelled from publicly documented CRT physics, not from any manufacturer's firmware. The result is a look that's correct by construction, and that gets sharper, not blockier, the more resolution you give it.</p>
+
+  <div class="hero-ctas" style="margin-top:48px">
+    <a class="btn btn-primary" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Download on the Mac App Store</a>
+    <a class="btn btn-ghost" href="./">Back to overview</a>
+  </div>
+</main>
+
+<div class="stripes thin"></div>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Stephan Petrequin. Phosphors CRT and CRTEngine are proprietary software.</span>
+    <nav>
+      <a href="how-it-works.html">How it works</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:sdevq@icloud.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

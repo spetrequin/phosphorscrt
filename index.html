@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phosphors CRT — A real CRT, simulated all the way down. For Mac.</title>
+  <meta name="description" content="Phosphors CRT gives music videos, game trailers, and titles the genuine look of a cathode-ray tube. Not a scanline overlay: a simulated electron beam, real phosphor decay, and real shadow-mask geometry, recorded straight to ProRes or H.264. Free on the Mac App Store.">
+  <link rel="canonical" href="https://phosphorscrt.com/">
+  <link rel="icon" href="assets/img/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Phosphors CRT — A real CRT, simulated all the way down.">
+  <meta property="og:description" content="Not a filter. A simulated electron beam, real phosphor decay, and real mask geometry, applied to your footage in real time and recorded to ProRes or H.264. Free on the Mac App Store.">
+  <meta property="og:image" content="https://phosphorscrt.com/assets/img/app-vga-monitor-2000.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0a0a0d">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Phosphors CRT",
+    "operatingSystem": "macOS 15.6 or later, Apple silicon",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "url": "https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12",
+    "author": {"@type": "Person", "name": "Stephan Petrequin"}
+  }
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/favicon-64.png" alt="" width="28" height="28">Phosphors CRT</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <nav class="nav-links" id="nav-links">
+      <a href="#not-a-filter">Why it's different</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#recording">Recording</a>
+      <a href="#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a class="btn btn-primary btn-sm" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Mac App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">For macOS · Apple silicon · Free download</p>
+        <h1>A real CRT,<br>simulated <span class="glow">all the way down.</span></h1>
+        <p class="lede">Phosphors CRT gives music videos, game trailers, ads and title sequences the genuine look of a cathode-ray tube. Not a scanline overlay: a simulated electron beam, real phosphor decay, and real shadow-mask geometry, applied to your footage in real time and recorded straight to ProRes or H.264.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.2 1-4.1 2.5-1.8 3-.5 7.5 1.3 10 .9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1-2.9-3.9zM14 5.3c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+            Download on the Mac App Store
+          </a>
+          <a class="btn btn-ghost" href="how-it-works.html">See how it works</a>
+        </div>
+        <p class="hero-meta"><span>Free to try</span><span>Pro unlock $29.99, one time</span><span>No account, no network</span></p>
+      </div>
+      <div>
+        <div class="shot"><img src="assets/img/detail-stripes.jpg" alt="Close-up of the Phosphors CRT picture: individual red, green and blue phosphor stripes resolving through a face, with scanlines and convergence fringing at the edges." width="1120" height="700"></div>
+        <p class="caption">Lean in: the picture is built from individual RGB phosphor stripes, not painted over with a texture.</p>
+      </div>
+    </div>
+
+    <div class="hero-shot">
+      <div class="shot"><img src="assets/img/app-vga-monitor-2000.jpg" alt="The Phosphors CRT app window: display-type list and settings panel on the left, a 4:3 CRT picture on a VGA monitor preset filling the rest, with a filmstrip transport bar along the bottom." width="2000" height="1250" loading="eager"></div>
+      <p class="caption">Phosphors CRT on the VGA monitor preset, 4K render, stripe mask, 158% viewing zoom.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NOT A FILTER ===================== -->
+<section id="not-a-filter">
+  <div class="wrap">
+    <p class="eyebrow">A simulation, not a filter</p>
+    <h2>Most "CRT looks" draw scanlines on top of your video.<br>Phosphors fires a beam at a screen and shows you what lights up.</h2>
+    <p class="lede" style="margin-top:1rem">The scanlines, the bloom, the motion trails, the rolling hum bar, the fine mask texture: none of them are painted on. They emerge from two physical processes running on the GPU, the same way they emerged from the glass in 1985.</p>
+
+    <div class="trio">
+      <div class="card">
+        <figure aria-hidden="true">
+          <svg viewBox="0 0 300 110">
+            <line class="d-axis" x1="10" y1="95" x2="290" y2="95"/>
+            <path class="d-fill" d="M20,95 C80,95 110,12 150,12 C190,12 220,95 280,95 Z"/>
+            <path class="d-line" d="M20,95 C80,95 110,12 150,12 C190,12 220,95 280,95"/>
+            <line class="d-axis" x1="150" y1="12" x2="150" y2="95" stroke-dasharray="3 3"/>
+            <text class="d-label" x="150" y="108" text-anchor="middle">one scanline</text>
+          </svg>
+        </figure>
+        <p class="eyebrow">01 · The beam</p>
+        <h3>A Gaussian spot, not a line</h3>
+        <p>One electron beam sweeps the screen left to right, top to bottom, with a bell-curve cross-section and a per-scanline arrival time. Focus, convergence, edge softening and bloom are properties of that beam, so they interact the way real ones do.</p>
+      </div>
+      <div class="card">
+        <figure aria-hidden="true">
+          <svg viewBox="0 0 300 110">
+            <line class="d-axis" x1="10" y1="95" x2="290" y2="95"/>
+            <path class="d-line" d="M20,12 C28,70 40,72 60,74 C120,78 200,86 280,92"/>
+            <text class="d-label" x="34" y="40">fast drop</text>
+            <text class="d-label" x="160" y="70">slow afterglow tail</text>
+            <text class="d-label" x="280" y="108" text-anchor="end">time →</text>
+          </svg>
+        </figure>
+        <p class="eyebrow">02 · The phosphor</p>
+        <h3>Real compounds, real decay</h3>
+        <p>Where the beam lands, phosphor glows and then fades on a two-component curve taken from documented phosphor data: P22 colour TV, P4 black-and-white, long-persistence P39 green, P31, amber P3. Each colour channel decays at its own rate, so moving edges tint like a real tube's.</p>
+      </div>
+      <div class="card">
+        <figure aria-hidden="true">
+          <svg viewBox="0 0 300 110">
+            <g>
+              <rect x="20" y="10" width="6" height="90" fill="#ff453a"/><rect x="28" y="10" width="6" height="90" fill="#30d158"/><rect x="36" y="10" width="6" height="90" fill="#0a84ff"/>
+              <rect x="46" y="10" width="6" height="90" fill="#ff453a"/><rect x="54" y="10" width="6" height="90" fill="#30d158"/><rect x="62" y="10" width="6" height="90" fill="#0a84ff"/>
+              <rect x="72" y="10" width="6" height="90" fill="#ff453a"/><rect x="80" y="10" width="6" height="90" fill="#30d158"/><rect x="88" y="10" width="6" height="90" fill="#0a84ff"/>
+            </g>
+            <g>
+              <circle cx="122" cy="24" r="5" fill="#ff453a"/><circle cx="136" cy="24" r="5" fill="#30d158"/><circle cx="150" cy="24" r="5" fill="#0a84ff"/>
+              <circle cx="129" cy="38" r="5" fill="#0a84ff"/><circle cx="143" cy="38" r="5" fill="#ff453a"/><circle cx="157" cy="38" r="5" fill="#30d158"/>
+              <circle cx="122" cy="52" r="5" fill="#ff453a"/><circle cx="136" cy="52" r="5" fill="#30d158"/><circle cx="150" cy="52" r="5" fill="#0a84ff"/>
+              <circle cx="129" cy="66" r="5" fill="#0a84ff"/><circle cx="143" cy="66" r="5" fill="#ff453a"/><circle cx="157" cy="66" r="5" fill="#30d158"/>
+              <circle cx="122" cy="80" r="5" fill="#ff453a"/><circle cx="136" cy="80" r="5" fill="#30d158"/><circle cx="150" cy="80" r="5" fill="#0a84ff"/>
+              <circle cx="129" cy="94" r="5" fill="#0a84ff"/><circle cx="143" cy="94" r="5" fill="#ff453a"/><circle cx="157" cy="94" r="5" fill="#30d158"/>
+            </g>
+            <g>
+              <rect x="186" y="10" width="6" height="26" rx="2" fill="#ff453a"/><rect x="194" y="10" width="6" height="26" rx="2" fill="#30d158"/><rect x="202" y="10" width="6" height="26" rx="2" fill="#0a84ff"/>
+              <rect x="212" y="24" width="6" height="26" rx="2" fill="#ff453a"/><rect x="220" y="24" width="6" height="26" rx="2" fill="#30d158"/><rect x="228" y="24" width="6" height="26" rx="2" fill="#0a84ff"/>
+              <rect x="186" y="40" width="6" height="26" rx="2" fill="#ff453a"/><rect x="194" y="40" width="6" height="26" rx="2" fill="#30d158"/><rect x="202" y="40" width="6" height="26" rx="2" fill="#0a84ff"/>
+              <rect x="212" y="54" width="6" height="26" rx="2" fill="#ff453a"/><rect x="220" y="54" width="6" height="26" rx="2" fill="#30d158"/><rect x="228" y="54" width="6" height="26" rx="2" fill="#0a84ff"/>
+              <rect x="186" y="70" width="6" height="26" rx="2" fill="#ff453a"/><rect x="194" y="70" width="6" height="26" rx="2" fill="#30d158"/><rect x="202" y="70" width="6" height="26" rx="2" fill="#0a84ff"/>
+            </g>
+            <text class="d-label" x="56" y="108" text-anchor="middle">grille</text>
+            <text class="d-label" x="140" y="108" text-anchor="middle">shadow</text>
+            <text class="d-label" x="208" y="108" text-anchor="middle">slot</text>
+          </svg>
+        </figure>
+        <p class="eyebrow">03 · The mask</p>
+        <h3>Three real geometries</h3>
+        <p>Aperture grille stripes like a Trinitron, delta-triad shadow-mask dots, and the slot mask in between. Or Triode: the three guns' picture with no mask at all. The pattern is drawn as fine as the pixel grid can hold, and it resolves further the more resolution you give it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES ===================== -->
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow">What you get</p>
+    <h2>Set up a tube. The picture follows.</h2>
+    <p class="lede" style="margin-top:1rem">Because the artifacts come from one coherent simulation, you never fight a stack of independent sliders. A bright area blooms, which fattens its scanlines, which changes how the mask reads, which the phosphor then trails.</p>
+
+    <div class="grid-3" style="margin-top:40px">
+      <div class="feature">
+        <span class="k">Display types</span>
+        <h3>Six period-accurate CRTs</h3>
+        <p>NTSC colour and black-and-white televisions, a multi-sync VGA monitor from CGA 200 lines to SXGA 1024, and green, amber and paper-white monochrome terminals. Each one switches the whole pipeline, not just a colour tint.</p>
+      </div>
+      <div class="feature">
+        <span class="k">Signal path</span>
+        <h3>RF, Composite, S-Video, Component</h3>
+        <p>Pick how the picture reaches the tube. RF brings tuner snow and narrow bandwidth. Composite combs luma from chroma with dot crawl. S-Video drops the cross-colour. Component is clean 480p. Retro Console is 240p over RF, with the thin-beam scanline gaps consoles were famous for.</p>
+      </div>
+      <div class="feature">
+        <span class="k">Phosphor patterns</span>
+        <h3>Grille, slot, shadow mask, or none</h3>
+        <p>Pattern Scale sets how large the lattice is, from the finest the picture can hold up to 3×. Pattern Focus sets how tightly each cell is drawn and how much black sits between them. Both work on the live picture and in recordings.</p>
+      </div>
+      <div class="feature">
+        <span class="k">Shutter</span>
+        <h3>The naked eye, or a camera filming a CRT</h3>
+        <p>At 1.00 you are the rested eye and everything fuses into a steady picture. Lower it and you watch through an ever-faster camera shutter: the rolling bright band and flicker of filmed CRT footage appear.</p>
+      </div>
+      <div class="feature">
+        <span class="k">Conditions</span>
+        <h3>Make it look tired</h3>
+        <p>Every preset starts healthy. Then push the H-Hold until the picture tears, let the V-Hold slip so it rolls, add mains hum bars, jitter, tuner sparkle, and a detuned channel on RF.</p>
+      </div>
+      <div class="feature">
+        <span class="k">Sound</span>
+        <h3>The TV speaker, too</h3>
+        <p>On broadcast presets your audio runs through a full FM receiver chain: pre-emphasis, phase noise, MTS stereo with dbx companding, a small-speaker model and intercarrier buzz. The stereo image narrows to mono as the signal fades, because that is what the chain does.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow" style="margin-top:56px">Every dial</p>
+    <div class="dials">
+      <div><b>Pattern</b><span>Triode · Aperture Grille · Slot Mask · Shadow Mask</span></div>
+      <div><b>Pattern Scale</b><span>1.00× to 3.00×</span></div>
+      <div><b>Pattern Focus</b><span>Cell tightness and black matrix</span></div>
+      <div><b>Brightness · Contrast</b><span>Black level and white gain</span></div>
+      <div><b>Color · Tint</b><span>Saturation, NTSC hue drift</span></div>
+      <div><b>Overscan</b><span>0 to 3% behind the bezel</span></div>
+      <div><b>Sharpness</b><span>Beam focus, vertical</span></div>
+      <div><b>H-Focus</b><span>The focus pot, through its sweet spot</span></div>
+      <div><b>Bandwidth</b><span>Analog chain roll-off and ringing</span></div>
+      <div><b>Shutter</b><span>Eye or camera integration</span></div>
+      <div><b>Beam Bloom</b><span>Highlights swell and spill</span></div>
+      <div><b>Convergence</b><span>Three guns mis-registering</span></div>
+      <div><b>Edge Focus · Vignette</b><span>Soft corners, darker rim</span></div>
+      <div><b>Shot Noise · Beam Noise</b><span>Grain and drive flicker</span></div>
+      <div><b>H-Jitter · V-Jitter</b><span>Shiver and bounce</span></div>
+      <div><b>Hum Bar</b><span>Mains leak rolling up the screen</span></div>
+      <div><b>V-Hold · H-Hold</b><span>Roll and tear</span></div>
+      <div><b>RF Tuning · Impulse Noise</b><span>Detune toward snow</span></div>
+      <div><b>Comb Filter</b><span>Cross-colour on fine detail</span></div>
+      <div><b>Stereo · Speaker · Shielding</b><span>The receiver's audio</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">Under the glass</p>
+    <h2>Your clip takes the same trip a broadcast did.</h2>
+    <p class="lede" style="margin-top:1rem">The engine simulates the chain from source to screen. The phosphor buffer on the GPU <em>is</em> the tube; your Mac's display is just a window onto it. That is why the look stays correct from 480p to 4K instead of breaking down like a fixed overlay.</p>
+
+    <div class="pipeline">
+      <div class="step"><b>Your video</b><span>Any clip macOS can decode: H.264, HEVC, ProRes, MPEG-2.</span></div>
+      <div class="step"><b>Broadcast signal</b><span>Encoded and decoded as NTSC, RF, composite, S-Video, component or VGA.</span></div>
+      <div class="step"><b>Electron beam</b><span>Per-scanline timing, Gaussian spot, bloom, convergence, jitter.</span></div>
+      <div class="step"><b>Phosphors glow and fade</b><span>Real decay curves, persistence trails, interlace.</span></div>
+      <div class="step"><b>Mask and glass</b><span>Phosphor geometry, brightness, vignette, hum bar, HDR headroom.</span></div>
+      <div class="step"><b>The picture</b><span>What you see, and exactly what gets recorded.</span></div>
+    </div>
+
+    <div class="hero-ctas" style="margin-top:36px">
+      <a class="btn btn-ghost" href="how-it-works.html">Read the full explanation</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Display type</th><th>Lines · Refresh</th><th>Phosphor</th><th>Character</th></tr></thead>
+        <tbody>
+          <tr><td><b>NTSC color</b></td><td class="mono">480i · 59.94 Hz</td><td><span class="sw" style="color:#fff;background:#fff"></span>P22 colour</td><td>Trinitron-style home TV. Punchy colour, moderate bloom, aperture grille. RF, Composite, S-Video, Component and Retro Console inputs.</td></tr>
+          <tr><td><b>NTSC black and white</b></td><td class="mono">480i · 59.94 Hz</td><td><span class="sw" style="color:#c8d2ff;background:#c8d2ff"></span>P4 white</td><td>13-inch portable over RF. Soft focus, dreamy halation, significant bloom.</td></tr>
+          <tr><td><b>VGA monitor</b></td><td class="mono">200 to 1024 · 75 Hz</td><td><span class="sw" style="color:#fff;background:#fff"></span>P22 colour</td><td>Sony GDM-style multi-sync. Precise sharp beam, minimal artifacts, transparent.</td></tr>
+          <tr><td><b>Green CRT monitor</b></td><td class="mono">350 · 50 Hz</td><td><span class="sw" style="color:#33ff66;background:#33ff66"></span>P39 long persistence</td><td>IBM MDA look. Extremely sharp text, minimal bloom, and a trail that lingers for seconds.</td></tr>
+          <tr><td><b>Amber CRT monitor</b></td><td class="mono">350 · 70 Hz</td><td><span class="sw" style="color:#ffbf00;background:#ffbf00"></span>P3 amber</td><td>Warm terminal phosphor, medium persistence.</td></tr>
+          <tr><td><b>B&amp;W CRT monitor</b></td><td class="mono">350 · 75 Hz</td><td><span class="sw" style="color:#e8ecff;background:#e8ecff"></span>P4 white</td><td>Paper-white terminal. Sharp text, short persistence.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RECORDING ===================== -->
+<section id="recording">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Record for delivery</p>
+        <h2>A master you can hand straight to the edit.</h2>
+        <p class="lede" style="margin-top:1rem">Phosphors records the CRT picture in real time from the transport bar. Render Res is the file's pixel size, so 1080p means 1920×1080 and 4K means 4K. Nothing rescales it on the way out.</p>
+        <ul class="checks">
+          <li><b>ProRes 4444 masters</b> at full 4:4:4 colour, so the phosphor pattern survives a deep zoom-in and a heavy grade.</li>
+          <li><b>H.264 and HEVC delivery</b> in .mp4 for the web, game assets, and anywhere else.</li>
+          <li><b>HDR in HLG</b> (Rec. 2020). Phosphor peaks rise into the display's headroom the way a tube's beam-current budget allowed. Looks right on HDR screens and degrades gracefully on SDR ones.</li>
+          <li><b>Recording Preview</b> swaps the live view for the actual recording surface at 1:1, so you judge the file, not an approximation.</li>
+          <li><b>In and Out markers</b> to record a sub-range. Markers are saved with the project.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="shot"><img src="assets/img/screen-only-1600.jpg" alt="The CRT picture only: a 1950s colour film frame rendered through the VGA monitor preset with a visible RGB stripe mask and scanlines." width="1600" height="1138" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tier</th><th>Codec · File</th><th>Colour</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><b>Web</b></td><td class="mono">H.264 (SDR) / HEVC (HDR) · .mp4</td><td class="mono">4:2:0</td><td>Smallest files. Plays anywhere, embeds in web pages and game assets.</td></tr>
+          <tr><td><b>Standard</b></td><td class="mono">H.264 (SDR) / HEVC (HDR) · .mp4</td><td class="mono">4:2:0, higher bitrate</td><td>Crisp delivery. The default.</td></tr>
+          <tr><td><b>Pro</b></td><td class="mono">ProRes 4444 · .mov</td><td class="mono">4:4:4, full</td><td>Editing masters where the phosphor pattern must survive a deep zoom-in.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="eyebrow" style="margin-top:56px">The round trip</p>
+    <div class="steps">
+      <div><b>Export a clean shot</b><span>ProRes out of Final Cut, Premiere or Resolve.</span></div>
+      <div><b>Open it in Phosphors</b><span>Mark in and out if you only want a sub-range.</span></div>
+      <div><b>Dial in the tube</b><span>Start from a display type, then tweak.</span></div>
+      <div><b>Save the project</b><span>A small .phosphors file binds the look to the clip, so every shot is reproducible.</span></div>
+      <div><b>Record and cut it back in</b><span>Drop the CRT master onto the timeline as a new clip.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section id="pricing">
+  <div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h2>Free to try. One purchase to master.</h2>
+    <p class="lede" style="margin-top:1rem">The full effect is visible at any resolution in the live preview, for free. Pro is a one-time in-app purchase that unlocks recording.</p>
+
+    <div class="plans">
+      <div class="plan">
+        <p class="eyebrow" style="color:var(--muted)">Free</p>
+        <div class="price">$0</div>
+        <p class="muted small">Download and start today.</p>
+        <ul>
+          <li><b>Every display type,</b> every signal path, every dial</li>
+          <li><b>Full-quality live preview</b> at any render resolution</li>
+          <li>Projects and custom presets</li>
+          <li>Recording at 480p with the Triode pattern</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Download free</a>
+      </div>
+      <div class="plan pro">
+        <span class="tag">One-time</span>
+        <p class="eyebrow">Phosphors Pro</p>
+        <div class="price">$29.99<small>once, no subscription</small></div>
+        <p class="muted small">Unlocked inside the app through the App Store.</p>
+        <ul>
+          <li><b>Record at every resolution</b> up to 4K</li>
+          <li><b>All phosphor patterns</b> in recordings: grille, slot, shadow mask</li>
+          <li><b>ProRes 4444</b> mastering</li>
+          <li><b>HDR (HLG)</b> output</li>
+        </ul>
+        <a class="btn btn-primary" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Get Phosphors CRT</a>
+      </div>
+    </div>
+    <p class="muted small" style="margin-top:20px">Requires macOS 15.6 or later on an Apple silicon Mac. 8 GB of memory minimum, 16 GB recommended for 4K.</p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2>Before you download</h2>
+    <div class="faq">
+      <details>
+        <summary>Is this just another scanline shader?</summary>
+        <p>No. There is no scanline pass and no glow pass. The engine keeps a GPU buffer that represents the brightness of every phosphor on a simulated tube, drives a Gaussian electron beam across it at the CRT's own refresh rate, and decays each phosphor on measured curves. Scanlines, bloom and trails are what that buffer looks like. <a href="how-it-works.html">The full explanation is here.</a></p>
+      </details>
+      <details>
+        <summary>Why can't I see the phosphor pattern at 1×?</summary>
+        <p>Because you couldn't on a real tube either. A 21-inch Trinitron packs about 1,700 RGB triads across its width; you had to be inches from the glass to see them. At 1× Phosphors draws the pattern as fine as the picture allows, which on most panels below 5K is finer than the eye resolves. Raise Pattern Scale, or use the viewing zoom, to lean in.</p>
+      </details>
+      <details>
+        <summary>What does the free version limit?</summary>
+        <p>Only recording. You see the full effect at any resolution in the live preview. Free recordings are 480p with the Triode pattern. Pro unlocks all resolutions, all patterns, ProRes 4444 and HDR.</p>
+      </details>
+      <details>
+        <summary>Does it phone home?</summary>
+        <p>It can't. Phosphors CRT has no network entitlement at all, no analytics and no account. Your clips and recordings never leave your Mac. The App Store privacy label reads "Data Not Collected." <a href="privacy.html">Privacy policy.</a></p>
+      </details>
+      <details>
+        <summary>Can I animate settings over a shot, or batch a folder?</summary>
+        <p>Not yet. Phosphors applies one configuration per take and works one clip at a time. For an effect that changes mid-shot, record two masters with different settings and cross-dissolve in your editor.</p>
+      </details>
+      <details>
+        <summary>Which Macs does it run on?</summary>
+        <p>Any Apple silicon Mac (M1 or later) running macOS 15.6 or newer. The simulation is Metal-accelerated and fully sandboxed.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta-band">
+  <div class="wrap">
+    <img class="icon" src="assets/img/icon-512.png" alt="Phosphors CRT app icon: a small dark television with an RGB stripe screen and two antennas." width="96" height="96" loading="lazy">
+    <h2>Give your footage a tube.</h2>
+    <p class="lede" style="margin:0 auto">Free on the Mac App Store. Apple silicon, Metal-accelerated, no account required.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Download on the Mac App Store</a>
+      <a class="btn btn-ghost" href="support.html">Support</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="stripes thin"></div>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Stephan Petrequin. Phosphors CRT and CRTEngine are proprietary software.</span>
+    <nav>
+      <a href="how-it-works.html">How it works</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:sdevq@icloud.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

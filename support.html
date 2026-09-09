@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phosphors CRT — Support</title>
+  <meta name="description" content="Support for Phosphors CRT, the physical-phosphor CRT simulator for macOS. Requirements, common questions, and how to get help.">
+  <link rel="canonical" href="https://phosphorscrt.com/support.html">
+  <link rel="icon" href="assets/img/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#0a0a0d">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/favicon-64.png" alt="" width="28" height="28">Phosphors CRT</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <nav class="nav-links" id="nav-links">
+      <a href="./#not-a-filter">Why it's different</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="./#features">Features</a>
+      <a href="./#recording">Recording</a>
+      <a href="./#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a class="btn btn-primary btn-sm" href="https://apps.apple.com/us/app/phosphors-crt/id6784439481?mt=12">Mac App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article">
+  <p class="eyebrow">Support</p>
+  <h1>Phosphors CRT Support</h1>
+  <p class="lede">A physical-phosphor CRT simulator for macOS.</p>
+
+  <h2>Get help</h2>
+  <p>The fastest answers are built in: open Phosphors and choose <b>Help ▸ Phosphors Help</b> for a full walkthrough of every display type, setting, recording option and keyboard shortcut, plus a troubleshooting section and FAQ.</p>
+
+  <h2>Contact</h2>
+  <p>Still stuck, found a bug, or have a feature request? Email <a href="mailto:sdevq@icloud.com">sdevq@icloud.com</a> and include:</p>
+  <ul>
+    <li>Your macOS version</li>
+    <li>Your Mac model (Phosphors requires Apple silicon)</li>
+    <li>What you were doing and what happened</li>
+  </ul>
+
+  <h2>Requirements</h2>
+  <ul>
+    <li>macOS 15.6 or later on an Apple silicon Mac (M1 or later)</li>
+    <li>8 GB of memory minimum; 16 GB or more recommended for 4K rendering</li>
+  </ul>
+
+  <h2>Common questions</h2>
+  <h3>A video won't open.</h3>
+  <p>If QuickTime Player or Preview also refuse it, the codec isn't supported. Transcode to ProRes or H.264 first. Image sequences and RAW aren't supported either; render them to a single ProRes file.</p>
+
+  <h3>I can't see the phosphor pattern.</h3>
+  <p>At 1× Pattern Scale the pattern is drawn as fine as the picture allows, which on most panels below 5K is finer than the eye resolves at a normal viewing distance, exactly as on a real tube. Raise Pattern Scale, or lean in with the viewing zoom. Triode has no pattern by design.</p>
+
+  <h3>The pattern didn't survive in my recording.</h3>
+  <p>A recording renders the pattern at its own resolution. Raise Render Res, or raise Pattern Focus toward 1 for harder-edged stripes. Below about 1080p the pattern is coarse either way; fade it toward a hint with Pattern Focus, or use Triode. Turn on Recording Preview to see exactly what will be written before you record.</p>
+
+  <h3>My recording looks washed out, or darker than the preview.</h3>
+  <p>Match the HDR setting to your delivery. Recording HDR for an SDR edit, or the other way round, shifts the brightness.</p>
+
+  <h3>Capture stutters at a very high Render Res.</h3>
+  <p>Recording shares the GPU with live rendering. Lower the Render Res, or close the Reference Monitor, for a smoother capture.</p>
+
+  <h3>How do I restore the Pro purchase on another Mac?</h3>
+  <p>Phosphors Pro is a standard App Store non-consumable purchase tied to your Apple Account. Open the upgrade screen in the Settings panel and use Restore Purchases.</p>
+</main>
+
+<div class="stripes thin"></div>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Stephan Petrequin. Phosphors CRT and CRTEngine are proprietary software.</span>
+    <nav>
+      <a href="how-it-works.html">How it works</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:sdevq@icloud.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
