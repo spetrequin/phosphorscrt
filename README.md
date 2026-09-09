@@ -120,6 +120,25 @@ Shot list, in priority order. Capture at 2× (Retina) so they stay sharp.
 Drop replacements into `assets/img/` under the same filenames and nothing
 else needs editing.
 
+## Pricing and version come from the App Store, not from copy
+
+`scripts/update-store-data.py` fetches the US storefront: the app's own
+price and version from the iTunes lookup API, and the Phosphors Pro in-app
+purchase price from the App Store web page (the lookup API does not expose
+in-app purchases). It rewrites every `<span data-store="...">` in
+`index.html` (`app-price`, `pro-price`, `version`), the JSON-LD offer, and
+`assets/data/store.json`.
+
+The GitHub Action in `.github/workflows/store-data.yml` runs it daily and
+on demand (Actions → Update store data → Run workflow), committing only
+when a value changed. A price change in App Store Connect therefore reaches
+the site within a day with no edits. If Apple changes the page format the
+script exits non-zero and the run fails visibly instead of committing a
+blank price.
+
+Run it by hand with `python3 scripts/update-store-data.py`, or
+`--check` to fetch and print without writing.
+
 ## Copy sources
 
 Every claim on the site is taken from the shipped app's Help book, the App
