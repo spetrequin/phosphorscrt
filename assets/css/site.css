@@ -165,6 +165,8 @@ section + section { border-top: 1px solid var(--line); }
 .demo-list a:hover img { border-color: var(--line-2); }
 .demo-list a[aria-current="true"] { color: var(--text); }
 .demo-list a[aria-current="true"] img { border-color: var(--accent); box-shadow: 0 0 18px -4px color-mix(in srgb, var(--accent) 55%, transparent); }
+.demo-group { margin: 36px 0 0; }
+.demo-group + .demo-list { margin-top: 14px; }
 .demo-note { margin: 20px 0 0; }
 .demo-note a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
 

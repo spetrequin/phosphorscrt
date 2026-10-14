@@ -21,8 +21,8 @@
 (function () {
   var player = document.getElementById('demo-player');
   var caption = document.getElementById('demo-caption');
-  var list = document.querySelector('.demo-list');
-  if (!player || !list) return;
+  var demo = document.querySelector('.demo');
+  if (!player || !demo) return;
   var poster = player.querySelector('.demo-poster');
   var posterImg = poster.querySelector('img');
 
@@ -44,11 +44,11 @@
     play(poster.dataset.video);
   });
 
-  list.addEventListener('click', function (e) {
-    var a = e.target.closest('a[data-video]');
+  demo.addEventListener('click', function (e) {
+    var a = e.target.closest('.demo-list a[data-video]');
     if (!a) return;
     e.preventDefault();
-    list.querySelectorAll('a[aria-current]').forEach(function (x) { x.removeAttribute('aria-current'); });
+    demo.querySelectorAll('.demo-list a[aria-current]').forEach(function (x) { x.removeAttribute('aria-current'); });
     a.setAttribute('aria-current', 'true');
     caption.textContent = a.dataset.caption;
     poster.href = a.href;
@@ -56,9 +56,9 @@
     poster.setAttribute('aria-label', 'Play: ' + a.textContent.trim());
     posterImg.src = a.dataset.poster;
     // Once a video is playing, picking another one plays it straight away.
-    if (player.querySelector('iframe')) {
-      play(a.dataset.video);
-    } else if (window.matchMedia('(max-width: 980px)').matches) {
+    if (player.querySelector('iframe')) play(a.dataset.video);
+    // Bring the player back into view if the top of it has scrolled off-screen.
+    if (player.getBoundingClientRect().top < 60) {
       player.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
