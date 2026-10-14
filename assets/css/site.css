@@ -142,6 +142,32 @@ section + section { border-top: 1px solid var(--line); }
 .hero-shot .shot { transform: perspective(1400px) rotateX(2deg); transform-origin: top; }
 .caption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; text-align: center; }
 
+/* ---------- Demos ---------- */
+.demo { margin-top: 40px; }
+.demo-player { position: relative; aspect-ratio: 16 / 9; }
+.demo-player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.demo-poster { position: absolute; inset: 0; display: block; }
+.demo-poster img { width: 100%; height: 100%; object-fit: cover; }
+.demo-play {
+  position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); color: var(--text);
+  border: 1px solid var(--line-2);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: transform .15s ease, background .15s ease;
+}
+.demo-play svg { width: 34px; height: 34px; margin-left: 4px; }
+.demo-poster:hover .demo-play, .demo-poster:focus-visible .demo-play { transform: scale(1.06); background: color-mix(in srgb, var(--bg) 50%, transparent); }
+.demo-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+.demo-list a { display: block; color: var(--text-2); font-size: 0.85rem; line-height: 1.3; }
+.demo-list a:hover { text-decoration: none; color: var(--text); }
+.demo-list img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-s); border: 1px solid var(--line); margin-bottom: 8px; transition: border-color .15s ease; }
+.demo-list a:hover img { border-color: var(--line-2); }
+.demo-list a[aria-current="true"] { color: var(--text); }
+.demo-list a[aria-current="true"] img { border-color: var(--accent); box-shadow: 0 0 18px -4px color-mix(in srgb, var(--accent) 55%, transparent); }
+.demo-note { margin: 20px 0 0; }
+.demo-note a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---------- Not-a-filter ---------- */
 .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
 .card {
@@ -275,6 +301,7 @@ footer a { color: var(--text-2); }
   .dials { grid-template-columns: 1fr 1fr 1fr; }
   .pipeline { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
+  .demo-list { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 680px) {
   body { font-size: 16px; }
@@ -287,9 +314,12 @@ footer a { color: var(--text-2); }
   .dials { grid-template-columns: 1fr 1fr; }
   .pipeline { grid-template-columns: 1fr 1fr; }
   .toc ol { columns: 1; }
+  .demo-list { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .demo-play { width: 60px; height: 60px; margin: -30px 0 0 -30px; }
+  .demo-play svg { width: 26px; height: 26px; }
   footer nav { margin-left: 0; flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn { transition: none; }
+  .btn, .demo-play, .demo-list img { transition: none; }
 }
