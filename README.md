@@ -18,9 +18,13 @@ support.html        Support page (App Store "Support URL")
 privacy.html        Privacy policy (App Store "Privacy Policy URL")
 404.html            Not-found page
 assets/css/site.css All styles
-assets/js/site.js   Mobile nav toggle
+assets/js/site.js   Mobile nav toggle, demo video player
 assets/img/         Icon renditions and screenshots
 ```
+
+When you change `site.css` or `site.js`, bump the `?v=` stamp on their links in
+every page. GitHub Pages lets browsers cache them for 10 minutes, and without a
+new stamp a visitor can get the new HTML with the old CSS/JS.
 
 ## Preview locally
 
